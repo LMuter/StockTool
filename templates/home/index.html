@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home_main_style.css' %}">
+{% endblock %}
+
+{% block jqscripts %}
+<script src="{% static 'java_script/home_main_script.js' %}" type="text/javascript"></script>
+{% endblock %}
+
+{% block body %}
+
+<div id="navigation">
+    <a href="#" id="login_link">Login</a>
+</div>
+
+
+{% if message %}
+
+<div class="error">
+    {{ message }}
+</div>
+
+{% endif %}
+
+
+<div class="form_container" id="login_form_container">
+
+    <h1>Login</h1>
+
+    <form action="{% url 'login' %}" method="post" name="login" id="login_form">
+
+        {% csrf_token %}
+
+        <input type="text" placeholder="user name" name="username"/>
+        <input type="password" placeholder="password" name="password"/>
+
+        <button type="submit" class="submit">submit</button>
+    </form>
+
+
+    <!--<a href="#" id="register_link">register new user</a>-->
+</div>
+
+
+<div class="form_container" id="register_form_container">
+
+    <h1>Register</h1>
+
+    <form action="{% url 'register' %}" method="post" name="register" id="register_form">
+
+        {% csrf_token %}
+
+        <input type="text" placeholder="user name" name="username"/>
+        <input type="text" placeholder="name" name="name"/>
+        <input type="text" placeholder="surname" name="surname"/>
+        <input type="text" placeholder="e-mail" name="email"/>
+        <input type="password" placeholder="password" name="password"/>
+        <input type="password" placeholder="password retype" name="passwordRetype"/>
+
+        <button type="submit" class="submit">submit</button>
+        <button type="button" class="submit" id="close_register">back</button>
+    </form>
+</div>
+
+
+<h2 class="black">Careweb certificaten</h2>
+
+<div class="order_wrapper">
+    <div class="order_nav">
+        <a href="#bottom" class="nav selected" id="link_pending">orders</a>
+    </div>
+    <div class="orders">
+
+        <div class="messages" id="order_message">Message, could be info (blue), warning (yellow) or error (red)
+        </div>
+        <div class="order_headers">
+            <span class="order_id order_header">user</span>
+            <span class="order_type order_header">type</span>
+            <span class="share_amount order_header">amount</span>
+            <span class="share_price order_header">price</span>
+            <span class="order_result order_header">result</span>
+            <span class="order_definite_number_of_shares order_header">final amount</span>
+            <span class="order_definite_price order_header">final price</span>
+            <span class="order_date order_header">date</span>
+        </div>
+        <div id="wheel">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+            <div class="bar4"></div>
+            <div class="bar5"></div>
+            <div class="bar6"></div>
+            <div class="bar7"></div>
+            <div class="bar8"></div>
+        </div>
+        <div class="orders_container" id="user_orders_container"></div>
+    </div>
+</div>
+
+<div class="terms_order_view">* Aan dit overzicht kunnen geen rechten ontleend worden. <a href="{% url 'terms' %}"
+                                                                                          target="_blank"
+                                                                                          id="terms_link">Meer
+    informatie over de biedingsrondes en certificaten kunt u hier vinden</a>.
+</div>
+
+{% endblock %}
+
+

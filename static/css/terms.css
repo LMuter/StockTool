@@ -1,0 +1,145 @@
+h1 {
+    color: #eb9856;
+    font-size: 40px;
+    font-weight: lighter;
+    font-family: Roboto, arial, sans-serif;
+}
+
+h2 {
+    color: #006899;
+    font-size: 40px;
+    font-weight: lighter;
+    font-family: Roboto, arial, sans-serif;
+}
+
+h3 {
+    color: #006899;
+    font-size: 16px;
+    font-weight: BOLD;
+    font-family: Roboto, arial, sans-serif;
+}
+
+h4 {
+    color: #006899;
+    font-size: 16px;
+    font-weight: lighter;
+    font-family: Roboto, arial, sans-serif;
+    font-style: italic;
+    margin-bottom: 0px;
+}
+
+p {
+    margin: 0px;
+    margin-bottom: 1em;
+}
+
+a {
+    color: #006899;
+    text-decoration: none;
+    margin: 5px;
+    display: table;
+    font-family: Roboto, arial, sans-serif;
+    border-bottom: 1px dotted rgba(235, 152, 86, 0);
+}
+
+a:hover {
+    color: #eb9856;
+    border-bottom: 1px dotted #eb9856;
+}
+
+a.head_2 {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+a.head_4 {
+    margin-left: 3em;
+}
+
+#content_wrapper {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0px 0px 5px #999;
+    padding: 20px;
+    font-family: Roboto, arial, sans-serif;
+    margin-bottom: 5em;
+    margin-top: 5em;
+    color: #094165;
+}
+
+td.header {
+    padding: 10px;
+    background-color: #2E6E8C;
+    color: #FFF;
+    font-weight: bold;
+}
+
+.center_text {
+    text-align: center;
+}
+
+table {
+    margin-bottom: 1em;
+    box-shadow: 0px 0px 5px #999;
+    border-radius: 2px;
+}
+
+
+@media print {
+h1 {
+    color: #666;
+}
+
+h2 {
+    color: #777;
+    page-break-before: always;
+}
+
+h3 {
+    color: #777;
+}
+
+h4 {
+    color: #777;
+}
+
+a {
+    color: #777;
+    text-decoration: none;
+}
+
+a.head_2 {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+a.head_4 {
+    margin-left: 3em;
+}
+
+#content_wrapper {
+    width: 100%;
+}
+
+td.header {
+    padding: 10px;
+    background-color: #FFF;
+    color: #333;
+    font-weight: bold;
+}
+
+td {
+    background-color: #FFF;
+}
+
+.center_text {
+    text-align: center;
+}
+
+table {
+    margin-bottom: 1em;
+    width: 41em;
+    page-break-inside: avoid;
+}
+}

@@ -1,0 +1,5 @@
+__author__ = 'laurens'
+
+PERSON_STOCK_OWNER = 'PSO'
+PERSON_EMAIL_SUBSCRIBER = 'PES'
+PERSON_ALL = 'PA'

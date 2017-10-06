@@ -1,0 +1,743 @@
+
+h1 {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    color: #E7ECEF;
+    text-align: center;
+    font-size: 70px;
+}
+
+body {
+    margin-bottom: 200px;
+}
+
+#info_block_container {
+    width: 50em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.info_block {
+    display: inline-block;
+    width: 49%;
+}
+
+#orders_placed {
+    text-decoration: none;
+}
+
+#orders_placed:hover {
+    color: #555;
+}
+
+#register_export {
+    margin: 30px;
+}
+
+#transaction_form {
+    margin: 30px;
+}
+
+#transaction_select {
+    width: 350px;
+    height: 30px;
+    color: rgb(136, 137, 137);
+    background-color: rgb(248, 249, 250);
+    border: 1px solid #DDDDDD;
+    box-shadow: 0 1px 1px #F0F0F0;
+    margin: 0px;
+}
+
+#orders_placed_extra_info {
+    display: none;
+}
+
+#total_num_shares {
+    margin-bottom: 30px;
+}
+
+.info_field {
+    color: rgb(91, 122, 139);
+    font-size: 16px;
+    margin-left: 30px;
+    text-shadow: 0px 0px 1px rgb(216, 217, 218);
+    font-family: Roboto, arial, sans-serif;
+    font-weight: normal;
+}
+
+
+
+/* ================ switch ================ */
+
+.container {
+    margin: 30px;
+    width: 120px;
+}
+
+.switch {
+    display: none;
+    position: relative;
+    margin: 20px auto;
+    height: 26px;
+    width: 120px;
+    background: rgb(231, 236, 239);
+    border-radius: 8px;
+    box-shadow: 0 1px 1px #F0F0F0;
+}
+
+.switch-label {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 58px;
+    line-height: 29px;
+    font-size: 14px;
+    color: rgb(231, 236, 239);
+    text-align: center;
+    cursor: pointer;
+}
+
+.switch-label:active {
+    font-weight: bold;
+}
+
+switch-label-off {
+    padding-left: 2px;
+}
+
+.switch-label-on {
+    padding-right: 2px;
+}
+
+.switch-input {
+    display: none;
+}
+
+.switch-input:checked + .switch-label {
+    color: rgb(86, 86, 86);
+    text-shadow: 0 1px rgba(255, 255, 255, 0.25);
+    -webkit-transition: 0.05s ease-out;
+    -moz-transition: 0.05s ease-out;
+    -o-transition: 0.05s ease-out;
+    transition: 0.05s ease-out;
+    font-family: Roboto, arial, sans-serif;
+}
+
+.switch-input:checked + .switch-label-on ~ .switch-selection {
+    /* Note: left: 50% doesn't transition in WebKit */
+    left: 60px;
+}
+
+.switch-selection {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 2px;
+    left: 2px;
+    width: 58px;
+    height: 22px;
+    background: #FFFFFF;
+    border-radius: 5px;
+    background: #FFF;
+    -webkit-transition: left 0.05s ease-out;
+    -moz-transition: left 0.05s ease-out;
+    -o-transition: left 0.05s ease-out;
+    transition: left 0.05s ease-out;
+}
+
+
+/* ================ login gird ================ */
+
+
+#header {
+    position: fixed;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.92);
+    top: 0px;
+    text-align: right;
+    z-index: 999;
+}
+
+#login_name {
+    display: inline-block;
+    width: 50em;
+    font-size: 12px;
+    color: #666;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+#logout_button {
+    font-size: 13px;
+    color: #FFFFFF;
+    background-color: #5376A9;
+    border: none;
+    margin: 5px;
+    width: 200px;
+    padding: 7px;
+    box-shadow: 0 1px 2px #708EB9;
+    background: -webkit-linear-gradient(#7C9AC5, #466490);
+    background: -o-linear-gradient(#7C9AC5, #466490);
+    background: -moz-linear-gradient(#7C9AC5, #466490);
+    background: linear-gradient(#7C9AC5, #466490);
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: right;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+#change_credentials {
+    display: none;
+    position: fixed;
+    width: 250px;
+    font-size: 20px;
+    color: #999;
+    background-color: #fff;
+    border: solid #999 1px;
+    border-radius: 5px;
+    padding: 5px;
+    right: 70px;
+    top: 70px;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 1px 10px #dedede;
+}
+
+.login_name_link {
+    color: #666;
+}
+
+.credentials_input {
+    display: none;
+    font-size: 15px;
+    padding-left: 2px;
+    width: 239px;
+    border-radius: 3px;
+    border: solid rgb(225, 225, 225) 1px;
+    margin: 2px;
+}
+
+#save_changes_button {
+    display: none;
+}
+
+#email_display {
+    margin-bottom: 15px;
+    color: #c8c8c8;
+}
+
+.credential_input_container {
+    margin-bottom: 8px;
+}
+
+#credentials_error_message {
+    display: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.credentials_button_container {
+    text-align: left;
+    padding-left: 3px;
+}
+
+#cancel_save_change_button {
+    display: none;
+}
+
+/* ================ create order ================ */
+
+
+.input {
+    padding: 5px;
+    margin: 6px;
+    font-size: 16px;
+    width: 187px;
+    color: #094165;
+    border-radius: 5px;
+    border: 1px solid #E0E6FB;
+    background-color: rgba(206, 224, 234, 0.12);
+    border-radius: 5px;
+}
+
+.input_type {
+    width: 70px;
+    height: 30px;
+}
+
+.price_container {
+    padding-top: 6px;
+    padding-bottom: 4px;
+    padding-right: 0px;
+}
+
+.euro_sign {
+    color: #A9A9A9;
+    font-size: 18px;
+}
+
+.input_price {
+    border: 0px;
+    background-color: #F9FCFD;
+    font-size: 16px;
+    color: #094165;
+    margin: 0px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.create_order_wrapper {
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top: 20px;
+}
+
+#create_order_message {
+    display: none;
+}
+
+.create_order_text {
+    margin-right: 25px;
+    color: #555;
+    font-family: Roboto, arial, sans-serif;
+}
+
+.default_button {
+    font-size: 13px;
+    color: #565656;
+    padding: 6px;
+    border-radius: 5px;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    box-shadow: 0 1px 1px #F0F0F0;
+    text-decoration: none;
+    font-family: Roboto, arial, sans-serif;
+    cursor: pointer;
+    text-align: center;
+}
+
+#create_order_button {
+    text-align: right;
+}
+
+.new_order_wrapper {
+    border: 1px solid #D6D6D6;
+    border-radius: 22px;
+    box-shadow: 0px 0px 5px #999;
+    width: 577px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    display: none;
+}
+
+#user_manager_order_wrapper {
+    width: 830px;
+}
+
+.visible{
+    display: block;
+}
+
+.new_order_container {
+    margin: 22px;
+}
+
+.person_select {
+    height: 30px;
+    width: 140px;
+}
+
+#terms_container {
+    text-align: right;
+}
+
+#terms_label {
+    display: inline-block;
+    width: 17em;
+    text-align: left;
+    font-size: 15px;
+    color: #555;
+}
+
+#terms_check {
+    margin-left: 0px;
+}
+
+#terms_link {
+    text-decoration: none;
+    color: #989898;
+    font-weight: bold;
+}
+
+#terms_link:hover {
+    color: #5A5A5A;
+}
+
+#submit_button_container{
+    display: inline-block;
+    width: 50%;
+}
+
+.submit_button {
+    margin-top: 11px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#user_manager_submit {
+    margin-top: 11px;
+    display: inline-block;
+    position: relative;
+    top: -1px;
+    height: 30px;
+}
+
+#receive_email {
+    display: none;
+}
+
+
+/* ================ new person ================ */
+
+
+#user_manager_person_wrapper {
+    width: 830px;
+}
+
+#new_person_submit {
+    margin-top: 11px;
+    display: inline-block;
+    position: relative;
+    top: -1px;
+    height: 30px;
+}
+
+#user_title {
+    width: 110px;
+}
+
+#user_type {
+    width: 170px;
+}
+
+#email_input {
+    width: 426px;
+}
+
+
+/* ================ new login ================ */
+
+
+#user_manager_login_wrapper {
+    width: 830px;
+}
+
+.password_field {
+    width: 113px;
+}
+
+#new_login_submit {
+    margin-top: 11px;
+    display: inline-block;
+    position: relative;
+    top: -1px;
+    height: 30px;
+}
+
+
+/* ================ message ================ */
+
+
+.message {
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: #CEE0EA;
+    padding: 5px;
+    border: 1px solid #6AB1D6;
+    color: #204F67;
+    box-shadow: 0px 0px 5px #CACACA;
+}
+
+.warning {
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: #EAE6CE;
+    padding: 5px;
+    border: 2px solid #D6C66A;
+    color: #666720;
+    box-shadow: 0px 0px 5px #CACACA;
+}
+
+.error {
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: #EACECE;
+    padding: 5px;
+    border: 2px solid #D66A6A;
+    color: #672020;
+    box-shadow: 0px 0px 5px #CACACA;
+}
+
+/* ================ order table ================ */
+
+.order_wrapper {
+    border: 1px solid #D6D6D6;
+    border-radius: 22px;
+    box-shadow: 0px 0px 5px #999;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 200px;
+    margin-bottom: 50px;
+}
+
+.order_nav {
+    background-color: #2C576D;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.order_headers {
+    background-color: rgba(44, 87, 109, 0.11);
+    color: #2C576D;
+    border-left: 10px solid #E7ECEF;
+}
+
+#orders {
+    margin: 12px;
+    color: #555;
+}
+
+#order_message {
+    display: none;
+}
+
+.orders_container {
+    min-height: 10em;
+}
+
+.order_header {
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.order {
+    margin-top: 5px;
+    border-left: 9px solid #FFF;
+}
+
+.order_elements {
+    color: #2C576D;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.sell_order {
+    background-color: rgb(254, 255, 243);
+}
+
+.order_element {
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.order_element_color {
+    background-color: #F5FCFF;
+}
+
+.sell_order_color {
+    background-color: rgb(255, 255, 225);
+}
+
+.order_id {
+    width: 23%;
+}
+
+.order_type {
+    width: 6%;
+}
+
+.share_amount {
+    width: 8%;
+    text-align: right;
+}
+
+.share_price {
+    width: 10%;
+    text-align: right;
+}
+
+.share_price.order_element:before {
+    content: '€';
+    padding-right: 6px;
+}
+
+.order_date {
+    width: 13%;
+    text-align: right;
+}
+
+.order_result {
+    width: 12%;
+}
+
+.share_range {
+    width: 65%;
+    text-align: center;
+}
+
+.share_range_content {
+    padding-left: 5em;
+}
+
+.order_definite_number_of_shares {
+    width: 8%;
+    text-align: right;
+}
+
+.order_definite_price {
+    width: 10%;
+    text-align: right;
+    padding-right: 1%;
+}
+
+.order_definite_price.order_element:before {
+    content: '€';
+    padding-right: 6px;
+}
+
+a.nav:hover {
+    background-color: #FFF;
+    color: #999;
+}
+
+.share_price.order_element:before {
+    content: '€';
+    padding-right: 6px;
+}
+
+.order_header {
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 7px;
+}
+
+
+a.nav {
+    display: inline-block;
+    padding: 10px;
+    margin: 2px;
+    margin-bottom: 0px;
+    text-decoration: none;
+    color: #FFF;
+    border-radius: 20px 20px 0px 0px;
+}
+
+a.selected {
+    background-color: #FFF;
+    color: #999;
+}
+
+#order_wrapper_all {
+    display: none;
+}
+
+.terms_order_view {
+    color: #999;
+    text-align: left;
+    margin-top: -45px;
+    font-size: 12px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#terms_create_order {
+    margin-top: -14px;
+    width: 89%;
+    margin-bottom: 5px;
+}
+
+/* =============== WAITING WHEEL =============== */
+
+
+/* position the bars and balls correctly (rotate them and translate them outward)*/
+.bar1 {
+  -moz-transform:rotate(0deg) translate(0, -40px);
+  -webkit-transform:rotate(0deg) translate(0, -40px);opacity:0.12;
+}
+.bar2 {
+  -moz-transform:rotate(45deg) translate(0, -40px);
+  -webkit-transform:rotate(45deg) translate(0, -40px);opacity:0.25;
+}
+.bar3 {
+  -moz-transform:rotate(90deg) translate(0, -40px);
+  -webkit-transform:rotate(90deg) translate(0, -40px);opacity:0.37;
+}
+.bar4 {
+  -moz-transform:rotate(135deg) translate(0, -40px);
+  -webkit-transform:rotate(135deg) translate(0, -40px);opacity:0.50;
+}
+.bar5 {
+  -moz-transform:rotate(180deg) translate(0, -40px);
+  -webkit-transform:rotate(180deg) translate(0, -40px);opacity:0.62;
+}
+.bar6 {
+  -moz-transform:rotate(225deg) translate(0, -40px);
+  -webkit-transform:rotate(225deg) translate(0, -40px);opacity:0.75;
+}
+.bar7 {
+  -moz-transform:rotate(270deg) translate(0, -40px);
+  -webkit-transform:rotate(270deg) translate(0, -40px);opacity:0.87;
+}
+.bar8 {
+  -moz-transform:rotate(315deg) translate(0, -40px);
+  -webkit-transform:rotate(315deg) translate(0, -40px);opacity:1;
+}
+
+/* set up the three bar spinners */
+#wheel {
+    width: 100px;
+    height: 100px;
+    margin: 25px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    -moz-border-radius: 100px;
+    -moz-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+    -webkit-animation-name: rotateThis;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-animation-name: rotateThis;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+#wheel div {
+    width: 10px;
+    height: 30px;
+    background: #2C576D;
+    position: absolute;
+    top: 35px;
+    left: 45px;
+    border-radius: 5px;
+}
+
+/* shadows for the first spinner */
+#wheel div {
+    -moz-box-shadow: #999 0 0 4px;
+    -webkit-box-shadow: #999 0 0 5px;
+}

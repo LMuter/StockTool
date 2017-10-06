@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+
+{% load staticfiles %}
+
+
+<html lang="nl">
+
+<head>
+
+    {% block head %}
+
+    <title>{% block head_title %} Stock App {% endblock %}</title>
+    <meta charset="utf-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main_style.css' %}">
+
+    {% endblock %}
+
+    {% block style %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+{% block body %}
+{% endblock %}
+
+<script src="{% static 'java_script/jquery-1.11.3.min.js' %}" type="text/javascript"></script>
+
+{% block jqscripts %}
+{% endblock %}
+
+</body>

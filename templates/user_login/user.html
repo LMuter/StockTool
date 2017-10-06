@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}">
+{% endblock %}
+
+{% block jqscripts %}
+<script src="{% static 'java_script/user.js' %}" type="text/javascript" xmlns="http://www.w3.org/1999/html"></script>
+{% endblock %}
+
+{% block body %}
+
+
+<div id="header">
+    <h6 id="login_name">
+        logged in as:
+        <a href="#" onClick="show_change_credentials()" class="login_name_link">{{ user_name }} ({{ user_type }})</a>
+    </h6>
+    <a href="{% url 'logout' %}" id="logout_button">logout</a>
+</div>
+
+<div id="change_credentials">
+    <div id="email_display">
+        {{ user_email }}
+    </div>
+    <div id="credentials_error_message" class="error"></div>
+    <form id="change_credentials_form" action="{% url 'change_credentials' %}">
+
+        {% csrf_token %}
+
+        <div class="credential_input_container">
+            <input type="hidden" class="hidden" name="username" value="{{ user_login_name }}">
+            <input type="hidden" class="hidden" name="email" value="{{ user_email }}">
+            <input type="hidden" class="hidden" name="conformationMail" value="certificaten@careweb.nl">
+            <input type="password" placeholder="password" class="credentials_input" id="current_pass_input"
+                   name="password"/>
+            <input type="password" placeholder="new password" class="credentials_input" id="cred_pass_input"
+                   name="passwordNew"/>
+            <input type="password" placeholder="password check" class="credentials_input" id="cred_pass_retype"
+                   name="passwordRetype"/>
+        </div>
+        <div class="credentials_button_container">
+            <a id="change_password_button" class="change_credientials_button default_button"
+               onClick="change_password()">
+                change password
+            </a>
+            <button id="save_changes_button" class="change_credientials_button default_button" type="submit">
+                save
+            </button>
+            <a id="cancel_save_change_button" class="change_credientials_button default_button"
+               onClick="hide_change_password()">cancel</a>
+        </div>
+    </form>
+</div>
+
+<h1>User view</h1>
+
+<div id="info_block_container">
+    <div class="info_block">
+        <div class="info_field">
+            Final order date: {{ bidding_round_end }}
+        </div>
+        <div class="info_field">
+            Orders placed (user): {{ person.number_of_orders_total }}
+        </div>
+        <div class="info_field">
+            Buy-orders average price: &#8364; {{ av_order_price_user_buy }} ({{ orders_placed_user_buy }})
+        </div>
+        <div class="info_field">
+            Sell-orders average price: &#8364; {{ av_order_price_user_sell }} ({{ orders_placed_user_sell }})
+        </div>
+    </div>
+
+    <div class="info_block">
+        <div class="info_field">
+            Publication date: {{ bidding_round.transaction_publication_date }}
+        </div>
+        <div class="info_field">
+            Orders placed (all): {{ orders_placed_total }}
+        </div>
+        <div class="info_field">
+            Buy-orders average price: &#8364; {{ av_order_price_buy }} ({{ orders_placed_buy }})
+        </div>
+        <div class="info_field">
+            Sell-orders average price: &#8364; {{ av_order_price_sell}} ({{ orders_placed_sell }})
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="switch">
+            <input type="radio" class="switch-input" name="view" value="user" id="user">
+            <label for="user" class="switch-label switch-label-off">user</label>
+            <input type="radio" class="switch-input" name="view" value="all" id="all" checked>
+            <label for="all" class="switch-label switch-label-on">all</label>
+            <span class="switch-selection"></span>
+        </div>
+    </div>
+
+    {% if user_type == 'moderator' %}
+    <a href="{% url 'export_register' %}" class="default_button" id="register_export">register export</a>
+
+    <a href="{% url 'export_mailing_list' %}" class="default_button" id="mailing_list_export">download mailing list</a>
+
+    <form action="{% url 'export_transactions' %}" method="get" id="transaction_form">
+        <select name="bidding_round_id" class="input" id="transaction_select">
+            {% for round in bidding_round_all %}
+            <option value="{{ round.round_id }}">round {{ round.round_id }}: {{ round.start_date_third_party }} -
+                {{round.transaction_publication_date }}
+            </option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="default_button">transactions export</button>
+    </form>
+
+    {% endif %}
+</div>
+
+<a href="" id="bottom"></a>
+
+<div class="order_wrapper">
+    <div class="order_nav">
+        <a href="#bottom" class="nav selected" id="link_pending">orders</a>
+        <a href="#bottom" class="nav" id="link_register">register</a>
+    </div>
+    <div class="orders">
+
+        <div class="messages" id="order_message">Message, could be info (blue), warning (yellow) or error (red)
+        </div>
+        <div class="order_headers">
+            <span class="order_id order_header">user</span>
+            <span class="order_type order_header">type</span>
+            <span class="share_amount order_header">amount</span>
+            <span class="share_price order_header">price</span>
+            <span class="order_result order_header">result</span>
+            <span class="order_definite_number_of_shares order_header">final amount</span>
+            <span class="order_definite_price order_header">final price</span>
+            <span class="order_date order_header">date</span>
+        </div>
+        <div id="wheel">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+            <div class="bar4"></div>
+            <div class="bar5"></div>
+            <div class="bar6"></div>
+            <div class="bar7"></div>
+            <div class="bar8"></div>
+        </div>
+        <div class="orders_container" id="user_orders_container"></div>
+
+        <div class="create_order_wrapper">
+            <span class="create_order_text">
+                You have placed {{ person.number_of_orders_total }}
+                {% if person.number_of_orders_total == 1 %} order{% else %} orders{% endif %}
+                and have {{ user_orders_left }}
+                {% if user_orders_left == 1 %} order{% else %} orders{% endif %} left.
+            </span>
+            <!--<a href="#bottom" class="default_button" id="create_order_button">new order</a>-->
+        </div>
+    </div>
+</div>
+
+<div class="terms_order_view">* Aan dit overzicht kunnen geen rechten ontleend worden.</div>
+
+
+<div id="new_order_wrapper" class="new_order_wrapper">
+    <div class="new_order_container">
+
+        <div class="messages" id="create_order_message"></div>
+
+        <form action="{% url 'new_order' %}" method="post" id="new_order">
+
+            {% csrf_token %}
+
+            <span class="input price_container">
+                <span class="euro_sign">&#8364;</span>
+                <input class="input_price" type="number" step="0.01" placeholder="price per share" name="price">
+            </span>
+            <input class="input" type="number" placeholder="amount of shares" name="amount">
+            <select class="input input_type" name="oder_type">
+                <option value="empty"></option>
+                <option value="buy">buy</option>
+                <option value="sell">sell</option>
+            </select>
+
+            <div id="terms_container">
+                <label id="terms_label"><input type="checkbox" name="terms" id="terms_check">I accept the <a
+                        href="{% url 'terms' %}" target="_blank" id="terms_link">terms
+                    and
+                    conditions</a>.</label>
+                <span id="submit_button_container">
+                <button type="submit" class="submit default_button submit_button">submit</button>
+            </span>
+            </div>
+        </form>
+    </div>
+    <div class="terms_order_view" id="terms_create_order">
+        * Aan dit verzoek tot orderplaatsing kunnen geen rechten ontleend worden.
+    </div>
+</div>
+
+
+{% if user_type == 'moderator' %}
+
+<h1>User Manager</h1>
+
+<div id="user_manager">
+    <div id="user_manager_person_wrapper" class="new_order_wrapper visible">
+        <div class="new_order_container">
+
+            <div class="messages" id="user_manager_new_person_message"></div>
+
+            <form action="{% url 'new_person' %}" method="post" id="user_manager_new_person">
+
+                {% csrf_token %}
+
+                <select class="input input_type" name="title" id="user_title">
+                    <option value=""></option>
+                    <option value="dhr.">dhr.</option>
+                    <option value="mevr.">mevr.</option>
+                    <option value="dr.">dr.</option>
+                    <option value="drs.">drs.</option>
+                    <option value="mr.">mr.</option>
+                    <option value="ir.">ir.</option>
+                    <option value="ing.">ing.</option>
+                </select>
+
+                <input type="text" placeholder="first name" name="name" class="input"/>
+                <input type="text" placeholder="infix" name="infix" class="input"/>
+                <input type="text" placeholder="last name" name="surname" class="input"/>
+
+                <select class="input input_type" name="user_type" id="user_type">
+                    <option value=""></option>
+                    <option value="TP">Third party</option>
+                    <option value="ST">Employee</option>
+                </select>
+
+                <input type="text" placeholder="e-mail" name="email" class="input" id="email_input"/>
+
+
+                <span class="submit_button_container">
+                    <button type="submit" id="new_person_submit" class="submit default_button submit_button">
+                        create new person
+                    </button>
+                </span>
+            </form>
+        </div>
+    </div>
+
+    <div id="user_manager_order_wrapper" class="new_order_wrapper visible">
+        <div class="new_order_container">
+
+            <div class="messages" id="user_manager_create_order_message"></div>
+
+            <form action="{% url 'new_order' %}" method="post" id="user_manager_new_order">
+
+                {% csrf_token %}
+
+                <select class="input person_select" name="person" id="person_id">
+                    <option value="empty">Select Person</option>
+                    {% for pers in persons %}
+                    <option value="{{ pers.person_id }}">{{ pers.get_full_name }}</option>
+                    {% endfor %}
+                </select>
+
+                <select class="input input_type" name="oder_type">
+                    <option value="empty"></option>
+                    <option value="buy">buy</option>
+                    <option value="sell">sell</option>
+                </select>
+
+                <span class="input price_container">
+                    <span class="euro_sign">&#8364;</span>
+                    <input class="input_price" type="number" step="0.01" placeholder="price per share" name="price">
+                </span>
+
+                <input class="input" type="number" placeholder="amount of shares" name="amount">
+
+                <span class="submit_button_container">
+                    <button type="submit" id="user_manager_submit" class="submit default_button submit_button">
+                        submit order
+                    </button>
+                </span>
+            </form>
+        </div>
+    </div>
+
+    <div id="user_manager_login_wrapper" class="new_order_wrapper visible">
+        <div class="new_order_container">
+
+            <div class="messages" id="user_manager_new_login_message"></div>
+
+            <form action="{% url 'new_login' %}" method="post" id="user_manager_new_login">
+
+                {% csrf_token %}
+
+                <select class="input person_select" name="person" id="person_login_id">
+                    <option value="empty">Select Person</option>
+                    {% for pers in persons %}
+                    <option value="{{ pers.person_id }}">{{ pers.get_full_name }}</option>
+                    {% endfor %}
+                </select>
+
+                <input type="text" placeholder="username" name="username" class="input"/>
+                <input type="password" placeholder="password" name="password" class="input password_field"/>
+                <input type="password" placeholder="retype" name="passwordRetype" class="input password_field"/>
+
+                <span class="submit_button_container">
+                    <button type="submit" id="new_login_submit" class="submit default_button submit_button">
+                        create new login
+                    </button>
+                </span>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
+
+
+{% endblock %}
+
+
+

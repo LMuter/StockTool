@@ -1,5 +1,5 @@
     function on_startup() {
-        load_json_data("/orders/?&user=T", $('#user_orders_container'), "handle_order_data");
+        load_json_data("/orders/", $('#user_orders_container'), "handle_order_data");
     }
 
     var rotation_break = true;
